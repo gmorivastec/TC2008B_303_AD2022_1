@@ -419,29 +419,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1183190060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99784a715bb0fdf0f9353b2ecc6b482c, type: 3}
+  m_Script: {fileID: 11500000, guid: f7c49604a0c5d8af1a6d6b1c6705f6d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _carritoDummy:
-    id: 0
-    x: 0
-    y: 0
-    z: 0
-  _carritosDummy:
+  _listaDeCarros:
   - id: 0
-    x: 0
+    x: -6
     y: 0
     z: 0
   - id: 0
-    x: 0
+    x: -4.5
     y: 0
     z: 0
   - id: 0
-    x: 0
+    x: -3
     y: 0
     z: 0
   - id: 0
-    x: 0
+    x: -1.5
     y: 0
     z: 0
   - id: 0
@@ -449,23 +444,23 @@ MonoBehaviour:
     y: 0
     z: 0
   - id: 0
-    x: 0
+    x: 1.5
     y: 0
     z: 0
   - id: 0
-    x: 0
+    x: 3
     y: 0
     z: 0
   - id: 0
-    x: 0
+    x: 4.5
     y: 0
     z: 0
   - id: 0
-    x: 0
+    x: 6
     y: 0
     z: 0
   - id: 0
-    x: 0
+    x: 7.5
     y: 0
     z: 0
 --- !u!1 &1399129482

@@ -70,12 +70,12 @@ public class CarPoolManager : MonoBehaviour
     }
 
 
-    public void Activar(Vector3 posicion) {
+    public GameObject Activar(Vector3 posicion) {
 
         // evitamos error - no hay objetos en pool
         if(_pool.Count == 0){
             Debug.LogError("TE QUEDASTE SIN OBJETOS");
-            return;
+            return null;
         }
 
         // obtengo objeto de pool
@@ -84,7 +84,7 @@ public class CarPoolManager : MonoBehaviour
         actual.SetActive(true);
         actual.transform.position = posicion;
         
-
+        return actual;
     }
 
     public void Desactivar(GameObject objetoADesactivar){
