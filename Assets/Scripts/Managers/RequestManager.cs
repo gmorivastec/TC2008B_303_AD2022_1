@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class RequestManager : MonoBehaviour
 {
+
     private IEnumerator enumeratorCorrutina;
     private Coroutine corrutina;
 
@@ -28,7 +29,7 @@ public class RequestManager : MonoBehaviour
                     carros.carros[i].z);
         }
         
-        enumeratorCorrutina = EjemploCorrutina(); 
+        enumeratorCorrutina = Request(); 
 
         corrutina = StartCoroutine(enumeratorCorrutina);
     }
@@ -51,11 +52,23 @@ public class RequestManager : MonoBehaviour
     // CORRUTINAS 
     // mecanismo de manejo de pseudo concurrencia en Unity
     // NO es un hilo PERO se comporta como uno
-    IEnumerator EjemploCorrutina() {
+    IEnumerator Request() {
     
         while(true){
+
+            // hacemos solicitud para obtener string
+            string json = ServerSimulado.Instance.JSON;
+
+            // hacemos interpretación de json
+            ListaCarro listaCarro = JsonUtility.FromJson<ListaCarro>(json);
+            print(listaCarro.carros);
+
+            // LO QUE VA A SEGUIR:
+            // AVISAR A LOS DEMÁS QUE ALGO SUCEDIÓ
+            // (UnityEvents)
+
+            // esperamos para ejecutar siguiente actualización
             yield return new WaitForSeconds(1);
-            print("HOLA SOY UNA CORRUTINA");
         }
     }
 }
