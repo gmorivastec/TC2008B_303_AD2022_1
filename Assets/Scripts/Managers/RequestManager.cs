@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 // 3 cosas 
 // 1. parsing de JSON
@@ -53,6 +54,25 @@ public class RequestManager : MonoBehaviour
     // mecanismo de manejo de pseudo concurrencia en Unity
     // NO es un hilo PERO se comporta como uno
     IEnumerator Request() {
+
+        while(true){
+
+            // empezamos haciendo request
+            UnityWebRequest www = UnityWebRequest.Get("http://127.0.0.1:5000/");
+
+            // como en cualquier request este asunto es asíncrono
+            yield return www.SendWebRequest();
+
+            if(www.result != UnityWebRequest.Result.Success){
+                Debug.LogError("PROBLEMA EN REQUEST");
+            } else {
+                print(www.downloadHandler.text);
+            }
+
+            yield return new WaitForSeconds(1);
+        }
+    }
+    IEnumerator RequestSimulado() {
     
         while(true){
 
@@ -61,7 +81,7 @@ public class RequestManager : MonoBehaviour
 
             // hacemos interpretación de json
             ListaCarro listaCarro = JsonUtility.FromJson<ListaCarro>(json);
-            print(listaCarro.carros);
+            //print(listaCarro);
 
             // LO QUE VA A SEGUIR:
             // AVISAR A LOS DEMÁS QUE ALGO SUCEDIÓ

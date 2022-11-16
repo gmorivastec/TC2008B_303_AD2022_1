@@ -50,6 +50,7 @@ public class ServerSimulado : MonoBehaviour
             }
 
             JSON = JsonUtility.ToJson(listaCarro);
+            print(JSON);
             yield return new WaitForSeconds(0.5f);
         }
     }
