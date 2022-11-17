@@ -2,17 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Events;
+using System;
 
 // 3 cosas 
 // 1. parsing de JSON
 // 2. corrutinas 
 // 3. eventos de unity (puede que quede mañana)
 
+
+// si necesitamos parámetros en nuestro evento tenemos
+// que declarar nuestro propio tipo
+[Serializable]
+public class RequestConArg : UnityEvent<ListaCarro>{}
+
 public class RequestManager : MonoBehaviour
 {
 
-    private IEnumerator enumeratorCorrutina;
-    private Coroutine corrutina;
+    [SerializeField]
+    private RequestConArg _requestConArgumento;
+    
+    [SerializeField]
+    private UnityEvent _requestSinArgumento;
+
+    [SerializeField]
+    private string _urlRequest = "http://127.0.0.1:5000/";
+
+    private IEnumerator _enumeratorCorrutina;
+    private Coroutine _corrutina;
 
     void Start(){
         string json = "{\"carros\": [" + 
@@ -30,9 +47,16 @@ public class RequestManager : MonoBehaviour
                     carros.carros[i].z);
         }
         
-        enumeratorCorrutina = Request(); 
+        _enumeratorCorrutina = Request(); 
 
-        corrutina = StartCoroutine(enumeratorCorrutina);
+        _corrutina = StartCoroutine(_enumeratorCorrutina);
+
+        // agregar listener programaticamente
+        _requestSinArgumento.AddListener(EscuchaDummy);
+    }
+
+    void EscuchaDummy() {
+        print("METODO AGREGADO A EVENTO PROGRAMATICAMENTE");
     }
 
     void Update() {
@@ -42,11 +66,11 @@ public class RequestManager : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.B)){
-            StopCoroutine(enumeratorCorrutina);
+            StopCoroutine(_enumeratorCorrutina);
         }
 
         if(Input.GetKeyDown(KeyCode.C)){
-            StopCoroutine(corrutina);
+            StopCoroutine(_corrutina);
         }
     }
 
@@ -58,7 +82,7 @@ public class RequestManager : MonoBehaviour
         while(true){
 
             // empezamos haciendo request
-            UnityWebRequest www = UnityWebRequest.Get("http://127.0.0.1:5000/");
+            UnityWebRequest www = UnityWebRequest.Get(_urlRequest);
 
             // como en cualquier request este asunto es asíncrono
             yield return www.SendWebRequest();
@@ -67,6 +91,18 @@ public class RequestManager : MonoBehaviour
                 Debug.LogError("PROBLEMA EN REQUEST");
             } else {
                 print(www.downloadHandler.text);
+
+                // hacer parsing de JSON
+                ListaCarro listaCarro = JsonUtility.FromJson<ListaCarro>(
+                    www.downloadHandler.text
+                );
+
+
+                // cuando decidamos avisarle a los observadores
+                // utilizamos lo siguiente:
+                _requestSinArgumento?.Invoke();
+
+                _requestConArgumento?.Invoke(listaCarro);
             }
 
             yield return new WaitForSeconds(1);

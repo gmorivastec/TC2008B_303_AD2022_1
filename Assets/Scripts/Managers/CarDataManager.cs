@@ -56,4 +56,17 @@ public class CarDataManager : MonoBehaviour
             PosicionarCarros();
         }
     }
+
+    public void EscucharSinArgumentos() {
+
+        print("EVENTO LANZADO SIN ARGUMENTOS");
+    }
+
+    public void EscucharConArgumentos(ListaCarro datos) {
+
+        print("RECIBIDO: " + datos);
+
+        // actualizar _listaDeCarros
+        // invocar PosicionarCarros()
+    }
 }
