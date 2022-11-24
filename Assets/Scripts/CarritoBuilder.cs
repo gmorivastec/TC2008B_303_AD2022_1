@@ -5,6 +5,9 @@ using UnityEngine;
 public class CarritoBuilder : MonoBehaviour
 {
 
+    // CÓMO DETECTAR QUE OBJETO FUE CLICKEADO
+    // https://docs.unity3d.com/ScriptReference/MonoBehaviour.OnMouseDown.html
+
     [SerializeField]
     private CarroSO _datos;
 
