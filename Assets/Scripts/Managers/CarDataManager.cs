@@ -8,6 +8,10 @@ public class CarDataManager : MonoBehaviour
     [SerializeField]
     private Carro[] _listaDeCarros;
 
+    [SerializeField]
+
+    private CarroSO[] _carritosScriptableObjects;
+
     private GameObject[] _carrosGO;
 
     void Start() 
@@ -18,6 +22,7 @@ public class CarDataManager : MonoBehaviour
         for(int i = 0; i < _listaDeCarros.Length; i++)
         {
             _carrosGO[i] = CarPoolManager.Instance.Activar(Vector3.zero);
+            // actualizar scriptable object de carrito
         }
 
         PosicionarCarros();
