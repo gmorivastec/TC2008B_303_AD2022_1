@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carro (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7961254739112162015, guid: e47029abec41420108b8313bbe83e90f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e47029abec41420108b8313bbe83e90f, type: 3}
 --- !u!1001 &305668144
@@ -246,6 +250,10 @@ PrefabInstance:
     - target: {fileID: 7961254739112162015, guid: e47029abec41420108b8313bbe83e90f, type: 3}
       propertyPath: m_Name
       value: Carro
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961254739112162015, guid: e47029abec41420108b8313bbe83e90f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e47029abec41420108b8313bbe83e90f, type: 3}
@@ -343,6 +351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carro (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7961254739112162015, guid: e47029abec41420108b8313bbe83e90f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e47029abec41420108b8313bbe83e90f, type: 3}
 --- !u!1 &586490061
@@ -400,7 +412,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659653627}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83fac4f59b9957d3fa00f9e786dc9133, type: 3}
   m_Name: 
@@ -833,6 +845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: large_buildingB
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b9a0112cd02c1e0deaab026fb2555bac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9a0112cd02c1e0deaab026fb2555bac, type: 3}
 --- !u!1 &963194225
@@ -912,7 +928,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.20397383, y: -0.027896613, z: 0.0058148503, w: 0.9785615}
-  m_LocalPosition: {x: 0.34770387, y: 3.5599747, z: -6.118457}
+  m_LocalPosition: {x: 0.4356708, y: 11.974046, z: -28.370544}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1357,7 +1373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713171043}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.186996, y: 4.25, z: -12.88}
+  m_LocalPosition: {x: 20.58, y: 4.25, z: -12.88}
   m_LocalScale: {x: 5.9106, y: 2.2113, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1613,6 +1629,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 936ff1d66e205fabab55a4479909d205, type: 3}
       propertyPath: m_Name
       value: large_buildingA
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 936ff1d66e205fabab55a4479909d205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 936ff1d66e205fabab55a4479909d205, type: 3}

@@ -36,7 +36,7 @@ public class ServerSimulado : MonoBehaviour
     }
 
     IEnumerator GenerarJSON() {
-        
+        /*
         while(true)
         {
             ListaCarro listaCarro = new ListaCarro();
@@ -52,6 +52,8 @@ public class ServerSimulado : MonoBehaviour
             JSON = JsonUtility.ToJson(listaCarro);
             print(JSON);
             yield return new WaitForSeconds(0.5f);
-        }
+        }*/
+
+        yield return new WaitForEndOfFrame();
     }
 }

@@ -14,6 +14,9 @@ public class CarDataManager : MonoBehaviour
 
     private GameObject[] _carrosGO;
 
+    private Vector3[] _direcciones;
+    
+
     void Start() 
     {
         _carrosGO = new GameObject[_listaDeCarros.Length];
@@ -43,6 +46,7 @@ public class CarDataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         // MUY IMPORTANTE
         // CENTRALIZAR ENTRADA
         if(Input.GetKeyDown(KeyCode.R)){
@@ -60,6 +64,20 @@ public class CarDataManager : MonoBehaviour
             // posicionar carritos en nuevo lugar
             PosicionarCarros();
         }
+        */
+
+        if(_direcciones != null){
+            for(int i = 0; i < _carrosGO.Length; i++){
+                // modificar orientación de vehículo 
+                _carrosGO[i].transform.forward = _direcciones[i].normalized;
+
+                // desplazar utilizando vectores
+                _carrosGO[i].transform.Translate(_direcciones[i] * Time.deltaTime);
+            }
+        }
+        
+         
+
     }
 
     public void EscucharSinArgumentos() {
@@ -73,5 +91,43 @@ public class CarDataManager : MonoBehaviour
 
         // actualizar _listaDeCarros
         // invocar PosicionarCarros()
+
+        _direcciones = new Vector3[datos.steps[0].carros.Length];
+        for(int i = 0; i < _direcciones.Length; i++){
+            _direcciones[i] = new Vector3();
+        }
+
+        StartCoroutine(ActualizarPosicionesConDatos(datos));
+    }
+
+    IEnumerator ActualizarPosicionesConDatos(ListaCarro datos){
+
+        for(int i = 0; i < datos.steps.Length; i++){
+
+            // actualizar posición
+            _listaDeCarros = datos.steps[i].carros;
+            PosicionarCarros();
+
+            // recalcular direccion 
+
+            for(int j = 0; j < _direcciones.Length; j++){
+                
+                
+                if(i < datos.steps.Length - 1){
+                    _direcciones[j] = new Vector3(
+                        datos.steps[i + 1].carros[j].x - datos.steps[i].carros[j].x,
+                        datos.steps[i + 1].carros[j].y - datos.steps[i].carros[j].y,
+                        datos.steps[i + 1].carros[j].z - datos.steps[i].carros[j].z 
+                    );
+                } else {
+                    _direcciones[j] = Vector3.zero;
+                }
+            }
+
+            
+
+            // esperar un poquito
+            yield return new WaitForSeconds(1);
+        }
     }
 }

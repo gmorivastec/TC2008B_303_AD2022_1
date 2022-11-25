@@ -32,6 +32,7 @@ public class RequestManager : MonoBehaviour
     private Coroutine _corrutina;
 
     void Start(){
+        /*
         string json = "{\"carros\": [" + 
         "{\"id\": 0, \"x\": 0, \"y\": 0, \"z\": 0}," +
         "{\"id\": 1, \"x\": 1, \"y\": 1, \"z\": 1}," +
@@ -46,7 +47,7 @@ public class RequestManager : MonoBehaviour
                     carros.carros[i].y + " , "  +
                     carros.carros[i].z);
         }
-        
+  */      
         _enumeratorCorrutina = Request(); 
 
         _corrutina = StartCoroutine(_enumeratorCorrutina);
@@ -77,7 +78,7 @@ public class RequestManager : MonoBehaviour
     // CORRUTINAS 
     // mecanismo de manejo de pseudo concurrencia en Unity
     // NO es un hilo PERO se comporta como uno
-    IEnumerator Request() {
+    IEnumerator RequestRecurrente() {
 
         while(true){
 
@@ -126,5 +127,53 @@ public class RequestManager : MonoBehaviour
             // esperamos para ejecutar siguiente actualización
             yield return new WaitForSeconds(1);
         }
+    }
+
+    // ejemplo por si sólo se hace 1 request al inicio
+    IEnumerator Request() {
+
+        // 1. hacer request
+        // 2. parsear datos en string a json
+        // 3. invocar evento de unity para avisar que ya estuvo
+        // NOTA: NO HACER LOOP
+
+        print("CORRUTINA!");
+
+        yield return new WaitForSeconds(0.5f);
+
+        // OJO
+        // AQUÍ LO HARDCODEAMOS PARA LA DEMO EN CLASE
+        // PERO ESTO DEBE SER RESULTADO DEL PARSING DEL JSON
+        ListaCarro datos = new ListaCarro();
+
+        datos.steps = new Step[10];
+
+        for(int i = 0; i < datos.steps.Length; i++){
+            datos.steps[i] = new Step();
+
+            datos.steps[i].carros = new Carro[10];
+            datos.steps[i].semaforo = new Semaforo[2];
+
+            for(int j = 0; j < datos.steps[i].carros.Length; j++){
+                datos.steps[i].carros[j] = new Carro();
+                datos.steps[i].carros[j].id = j;
+                datos.steps[i].carros[j].x = j * 1.5f - 6f;
+                datos.steps[i].carros[j].y = 0;
+                datos.steps[i].carros[j].z = i * 1;
+            }
+
+            for(int j = 0; j < datos.steps[i].semaforo.Length; j++){
+                datos.steps[i].semaforo[j] = new Semaforo();
+                datos.steps[i].semaforo[j].color = 0;
+            }
+        }
+
+        print(JsonUtility.ToJson(datos));
+
+        /*
+        {"steps":[{"carros":[{"id":0,"x":-6.0,"y":0.0,"z":0.0},{"id":1,"x":-4.5,"y":0.0,"z":0.0},{"id":2,"x":-3.0,"y":0.0,"z":0.0},{"id":3,"x":-1.5,"y":0.0,"z":0.0},{"id":4,"x":0.0,"y":0.0,"z":0.0},{"id":5,"x":1.5,"y":0.0,"z":0.0},{"id":6,"x":3.0,"y":0.0,"z":0.0},{"id":7,"x":4.5,"y":0.0,"z":0.0},{"id":8,"x":6.0,"y":0.0,"z":0.0},{"id":9,"x":7.5,"y":0.0,"z":0.0}],"semaforo":[{"color":0},{"color":0}]},{"carros":[{"id":0,"x":-6.0,"y":0.0,"z":-1.0},{"id":1,"x":-4.5,"y":0.0,"z":-1.0},{"id":2,"x":-3.0,"y":0.0,"z":-1.0},{"id":3,"x":-1.5,"y":0.0,"z":-1.0},{"id":4,"x":0.0,"y":0.0,"z":-1.0},{"id":5,"x":1.5,"y":0.0,"z":-1.0},{"id":6,"x":3.0,"y":0.0,"z":-1.0},{"id":7,"x":4.5,"y":0.0,"z":-1.0},{"id":8,"x":6.0,"y":0.0,"z":-1.0},{"id":9,"x":7.5,"y":0.0,"z":-1.0}],"semaforo":[{"color":0},{"color":0}]},{"carros":[{"id":0,"x":-6.0,"y":0.0,"z":-2.0},{"id":1,"x":-4.5,"y":0.0,"z":-2.0},{"id":2,"x":-3.0,"y":0.0,"z":-2.0},{"id":3,"x":-1.5,"y":0.0,"z":-2.0},{"id":4,"x":0.0,"y":0.0,"z":-2.0},{"id":5,"x":1.5,"y":0.0,"z":-2.0},{"id":6,"x":3.0,"y":0.0,"z":-2.0},{"id":7,"x":4.5,"y":0.0,"z":-2.0},{"id":8,"x":6.0,"y":0.0,"z":-2.0},{"id":9,"x":7.5,"y":0.0,"z":-2.0}],"semaforo":[{"color":0},{"color":0}]},{"carros":[{"id":0,"x":-6.0,"y":0.0,"z":-3.0},{"id":1,"x":-4.5,"y":0.0,"z":-3.0},{"id":2,"x":-3.0,"y":0.0,"z":-3.0},{"id":3,"x":-1.5,"y":0.0,"z":-3.0},{"id":4,"x":0.0,"y":0.0,"z":-3.0},{"id":5,"x":1.5,"y":0.0,"z":-3.0},{"id":6,"x":3.0,"y":0.0,"z":-3.0},{"id":7,"x":4.5,"y":0.0,"z":-3.0},{"id":8,"x":6.0,"y":0.0,"z":-3.0},{"id":9,"x":7.5,"y":0.0,"z":-3.0}],"semaforo":[{"color":0},{"color":0}]},{"carros":[{"id":0,"x":-6.0,"y":0.0,"z":-4.0},{"id":1,"x":-4.5,"y":0.0,"z":-4.0},{"id":2,"x":-3.0,"y":0.0,"z":-4.0},{"id":3,"x":-1.5,"y":0.0,"z":-4.0},{"id":4,"x":0.0,"y":0.0,"z":-4.0},{"id":5,"x":1.5,"y":0.0,"z":-4.0},{"id":6,"x":3.0,"y":0.0,"z":-4.0},{"id":7,"x":4.5,"y":0.0,"z":-4.0},{"id":8,"x":6.0,"y":0.0,"z":-4.0},{"id":9,"x":7.5,"y":0.0,"z":-4.0}],"semaforo":[{"color":0},{"color":0}]},{"carros":[{"id":0,"x":-6.0,"y":0.0,"z":-5.0},{"id":1,"x":-4.5,"y":0.0,"z":-5.0},{"id":2,"x":-3.0,"y":0.0,"z"
+        */
+
+        _requestConArgumento?.Invoke(datos);
     }
 }
